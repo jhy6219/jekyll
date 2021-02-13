@@ -3,7 +3,7 @@ title:            He can do! She can do! Why not me!
 url:              https://jhy6219.github.io
 paginate:         5
 paginate_path:    "/posts/page:num/"
-baseurl:          "/jhy6219.github.io"
+baseurl:          "/jekyll"
 #permalink:       pretty
 permalink:        none
 timezone:         Asia/Seoul
@@ -32,7 +32,7 @@ version: 3.0.0
 googleads: true # true / false
 
 github:
-  repository_edit_url: "https://github.com/jhy6219/jhy6219.github.io/edit/master/"
+  repository_edit_url: "https://github.com/jhy6219/jekyll/edit/master/"
 
 # Navbar page list
 nav:
