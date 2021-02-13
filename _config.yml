@@ -1,0 +1,79 @@
+# Setup
+title:            He can do! She can do! Why not me!
+url:              https://jhy6219.github.io
+paginate:         5
+paginate_path:    "/posts/page:num/"
+baseurl:          "/jhy6219.github.io"
+#permalink:       pretty
+permalink:        none
+timezone:         Asia/Seoul
+#locale : "ko-KR"
+description:      "데이터 사이언티스트가 되고픈 데이터 분석가의 블로그"
+
+sass:
+  sass_dir: _sass
+  style: :compressed
+
+markdown: kramdown
+highlighter: rouge
+  # Options
+
+# Replace this value and uncomment to enable Google Analytics tracking
+# ga_analytics: UA-000000-0
+
+# Specify the author for blog posts
+author:
+  name: ㅈㅎㅇ
+  url: https://github.com/jhy6219
+  email: jhy6219@gmail.com
+
+# Custom vars
+version: 3.0.0
+googleads: true # true / false
+
+github:
+  repository_edit_url: "https://github.com/jhy6219/jhy6219.github.io/edit/master/"
+
+# Navbar page list
+nav:
+  - title: Blog
+    url: /posts
+  - title: Category
+    url: /category
+  - title: Tags
+    url: /tags
+#  - title: About
+#    url: /about
+#  - title: Azure
+#    url: /category/azure
+
+# Gems
+plugins:
+  - jekyll-coffeescript
+  - jekyll-gist
+#  - jekyll-github-metadata
+  - jekyll-paginate
+#  - jekyll-relative-links
+#  - jekyll-optional-front-matter
+#  - jekyll-readme-index
+#  - jekyll-default-layout
+#  - jekyll-titles-from-headings
+
+  - jekyll-feed
+  #- jekyll-redirect-from
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  #- jekyll-avatar
+  #- jemoji
+  #- jekyll-mentions
+  #- jekyll-include-cache
+
+# Optimize Jekyll
+exclude:
+  - .editorconfig
+  - .git
+  - .jekyll-cache
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE.md
+  - README.md

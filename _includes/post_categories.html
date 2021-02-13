@@ -1,0 +1,6 @@
+<div><i class="fa fa-folder-open"></i>
+  {% assign tags = page.categories %}
+  {% for tag in tags %}
+  <a href="/category/#{{tag|slugize}}">{{tag}}</a>{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+</div>

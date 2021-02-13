@@ -1,0 +1,43 @@
+---
+layout: page
+title: Tags
+permalink : /tags/
+---
+
+<h2 class="category-title">태그 리스트</h2>
+<ul>
+  {%  for tag in site.tags %}
+  <!-- tag_name 변수 지정: 태그명은 소문자화(slugize) 한다 -->
+  {% capture tag_name %}{{tag|first|slugize}}{% endcapture %}
+  <!-- tag_size 변수 지정-->
+  {% capture tag_size %}{{tag|last|size}}{% endcapture %}
+  <!-- font_size 변수 지정: 태그해당글숫자/전체글숫자 * 20 + 14 -->
+  {% capture font_size %}{{tag_size | times: 20 | divided_by:site.posts.size | plus: 14 }}{% endcapture %}
+  <li><a href="#{{tag_name}}" style="font-size:{{font_size}}px">{{ tag_name }}<span>({{ tag_size }})</span></a></li>
+  {% endfor %}
+</ul>
+<div>
+    <h2>태그별 글 목록</h2>
+    <div>
+        {% for tag in site.tags%}
+        <div style="margin-bottom: 30px;">
+            {% capture tag_name %}{{tag|first|slugize}}{% endcapture %}
+            <div id="{{ tag_name }}"></div>
+            <h4>{{ tag_name }}</h4>
+            <hr>
+            <ul>
+            {% for post in site.tags[tag_name] %}
+              <li>
+                  <small>
+                    {{ post.date | date: "%b %-d, %Y" }}
+                  </small>
+                  <h4>
+                    <a href="{{ site.url }}{{ site.baseurl }}{{ post.url }}">{{ post.title | escape }}</a>
+                  </h4>
+                </li>
+              {% endfor %}
+              </ul>
+          </div>
+          {% endfor %}
+    </div>    
+</div>
