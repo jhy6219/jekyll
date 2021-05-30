@@ -5,7 +5,7 @@ description: 데이터 사이언티스트가 되고 싶은 데이터 분석가
 background: '/img/bg-index.jpg'
 ---
 
-통계학과 모델링에 관심이 많습니다 ><
+통계학, 기계학습에 관심이 많습니다~
 
 ## 글 보러 가기
 - <a href="{{"/posts" | relative_url }}">전체 글 보기</a>
