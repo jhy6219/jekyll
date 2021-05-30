@@ -8,7 +8,7 @@ baseurl:          "/jekyll"
 permalink:        none
 timezone:         Asia/Seoul
 #locale : "ko-KR"
-description:      "데이터 사이언티스트가 되고픈 데이터 분석가의 블로그"
+description:      "데이터 사이언티스트가 되고싶은 데이터 분석가의 블로그"
 
 sass:
   sass_dir: _sass
@@ -23,7 +23,7 @@ highlighter: rouge
 
 # Specify the author for blog posts
 author:
-  name: ㅈㅎㅇ
+  name: hy
   url: https://github.com/jhy6219
   email: jhy6219@gmail.com
 
