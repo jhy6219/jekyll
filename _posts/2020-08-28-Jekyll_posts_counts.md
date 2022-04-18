@@ -1,10 +1,16 @@
 ---
 layout: post
-title: 지킬2 블로그 총 게시글의 수는? - Jekyll blog total number of posts
-excerpt: 지킬 블로그2 총 게시글의 수가 궁금하다면 이리저리 머리 굴릴 필요 없이 간단하게 구할 수 있다. Jekyll blog total number of posts
+title: 시계열 데이터 다루기1 - 날짜/시각 처리
+excerpt: R, Python, SQL에서 날짜와 시각을 처리하는 방법에 대해
 categories: [jekyll]
 tags: #[jekyll, blog, 꿀팁]
-last_modified_at: 2020-08-28
+last_modified_at: 404
+There isn't a GitHub Pages site here.
+
+If you're trying to publish one, read the full documentation to learn how to set up GitHub Pages for your repository, organization, or user account.
+
+GitHub Status — @githubstatus
+2022-04-29
 ---
 
 
