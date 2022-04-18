@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 지킬 블로그 총 게시글의 수는? - Jekyll blog total number of posts
+title: 지킬2 블로그 총 게시글의 수는? - Jekyll blog total number of posts
 excerpt: 지킬 블로그 총 게시글의 수가 궁금하다면 이리저리 머리 굴릴 필요 없이 간단하게 구할 수 있다. Jekyll blog total number of posts
 categories: [jekyll]
 tags: #[jekyll, blog, 꿀팁]
