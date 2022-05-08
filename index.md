@@ -5,9 +5,11 @@ description: 한번도 갖지 못한 것을 갖기 위해서는 한번도 해보
 background: '/img/bg-index.jpg'
 ---
 안녕하세요! 데이터분석가 hy입니다. 
-저는 뭐든 재밌는 것을 좋아하는데요! 기술 관련된 내용이지만 흥미로운 주제들로 글들을 많이 써보고 싶어요. 잘 부탁드립니다! 
+저는 뭐든 재밌는 것을 좋아하는데요! 기술 관련된 내용이지만 흥미로운 주제들로 다양한 글들을 써보고 싶어요.🥰 
+통계, 기계 학습, 데이터 시각화를 위주로 이야기들을 채워나갈 예정입니다.
+잘 부탁드립니다! 
 
-![637b7848629728a9ebac5a681fb9e221](https://user-images.githubusercontent.com/47768004/167302646-d7b9d69f-7329-4a0a-9c08-17deb9f7b128.gif)
+![stitch-hello](https://user-images.githubusercontent.com/47768004/167304177-8b88a272-0118-4a34-9bbd-b70608f1b931.gif)
 
 
 ## 글 보러 가기
