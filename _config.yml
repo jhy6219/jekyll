@@ -1,5 +1,5 @@
 # Setup
-title:            He can do! She can do! Why not me!
+title:            한갖한해
 url:              https://jhy6219.github.io
 paginate:         5
 paginate_path:    "/posts/page:num/"
@@ -8,7 +8,7 @@ baseurl:          "/jekyll"
 permalink:        none
 timezone:         Asia/Seoul
 #locale : "ko-KR"
-description:      "데이터 사이언티스트가 되고싶은 데이터 분석가의 블로그"
+description:      "한번도 갖지 못한 것을 갖기 위해서는 한번도 해보지 않은 것을 해야한다."
 
 sass:
   sass_dir: _sass
