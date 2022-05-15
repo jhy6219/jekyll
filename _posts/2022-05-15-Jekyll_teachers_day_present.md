@@ -9,12 +9,11 @@ comments: true
 ---
 아래는 내가 석사시절 스승의 날에 지도 교수님께 선물로 드린 그림(!?)이다.
 
-> 원본은 태양에 교수님 사진이 들어가고, 꽃은 랩실 사람들 5명의 얼굴이 들어간다. 교수님의 가르침을 받고 무럭무럭 자란다는 의미를 담았다.🌱 
+> 실제 드린 원본은 태양에 교수님 사진이 들어가고, 꽃에는 랩실 사람들 5명의 얼굴이 들어간다. 교수님의 가르침을 받고, 지도 학생들이 무럭무럭 자란다는 의미를 담았다.🌱 
 
 ![present](https://user-images.githubusercontent.com/47768004/168471008-a88d2fa6-4517-4241-8a86-822505abd6e7.gif)
 
-> TMI : 지도 교수님께서는 학생으로부터 물건 선물을 받지 않으셔서, 존경의 마음을 어떻게 표현할지 고민되었다. 마침 해당 학기에 교수님께서 데이터 시각화 강의를 하셨는데, 수업에서 배우는 ggplot2 패키지를 이용해서 무언가를 만들어가면 의미있을 것 같았다. 그래서 스승의 날 전날 밤을 새서 선물을 드렸던 기억이 있다. 
-(교수님께서는 받고 어떤 마음이 드셨을까...)
+> TMI : 당시 지도 교수님께서는 학생으로부터 물건 선물을 받지 않으셔서, 감사의 마음을 어떻게 표현할지 고민되었다. 마침 해당 학기에 교수님께서 데이터 시각화 강의를 하셨는데, 수업에서 배우는 ggplot2 패키지를 이용해서 무언가를 만들어드리면 의미있을 것 같았다. 그래서 스승의 날 전날 밤을 새서 교수님께 그림 선물을 드렸던 기억이 있다. (교수님께서는 받고 어떤 마음이 드셨을까...)
 
 선물을 준비하면서 아래 3가지 지점을 얻을 수 있었다. 그리고 이 작업이 나에겐 충분히 의미가 있다고 생각되어서 블로그에 남기려고 한다. 
 
@@ -22,8 +21,9 @@ comments: true
 - 시각화의 생각 확장 
 > "ggplot2으로 산점도, 선, 막대 그래프 말고 이런것도 할 수 있다고?"를 깨닫고, 이후에 ggplot2로 데이터를 표현하는데 적합한 새로운 그래프들을 그려나가는데도 도움이 됨.
 - 오랜만에 수학 공부하니 뇌가 활성화되는 느낌 
+> 원의 방정식이 얼마만이야..
 
-그림은 크게 5가지 부분으로 구성되고, 하나씩 자세히 작성해보겠다. 
+그림은 크게 5가지 부분으로 구성되고, 하나씩 자세히 작성해보았다. 
 0. 애니메이션 
 1. 꽃 
 2. 줄기 
@@ -94,7 +94,7 @@ ggplot()+
   theme_minimal()
 ```
 
-<img width="500" alt="flower_plot" src="https://user-images.githubusercontent.com/47768004/168469861-a1311ff9-f6f3-40eb-af13-d5833e02dee0.png"> 
+<img width="350" alt="flower_plot" src="https://user-images.githubusercontent.com/47768004/168469861-a1311ff9-f6f3-40eb-af13-d5833e02dee0.png"> 
 
 꽃은 아래와 같은 반원을 왔다갔다 하는 형태로 만들고 싶었다. (2->3->2->1->2...를 반복하는 형태로)
 
@@ -117,7 +117,7 @@ ggplot()+
 
 ## 2. 줄기 
 
-곡선을 그리는 함수 `geom_curve()`를 이용해서 줄기를 그렸다. 
+곡선을 그리는 함수 `geom_curve()`를 이용해서 아래와 같이 줄기를 그렸다. 줄기 시작과 끝(꽃 위치와 동일) 부분과 곡률만 설정해주면 되기 때문에 간단하다. 
 
 ```R
 geom_stem <- function(x=0, # 뿌리 위치 
@@ -134,11 +134,44 @@ geom_stem <- function(x=0, # 뿌리 위치
       )
 }
 ```
-<img width="500" alt="stem_move" src="https://user-images.githubusercontent.com/47768004/168473242-de879fe0-a853-40bd-9081-dbbec2660491.gif"> 
+<img width="400" alt="stem_move" src="https://user-images.githubusercontent.com/47768004/168473242-de879fe0-a853-40bd-9081-dbbec2660491.gif"> 
 
-꽃이 움직이기 때문에 줄기도 자연스럽게 바람에 흔들리는 것처럼 휘어지는 것으로 연출하고 싶었다. 따라서 아래와 같은 수식을 바탕으로 곡률이 변하도록 설정했다.
+꽃이 움직이기 때문에 줄기도 자연스럽게 바람에 흔들리는 것처럼 휘어지는 것으로 연출하고 싶었다. 따라서 아래와 같은 수식을 바탕으로 곡률이 변하도록 설정했다. 해당 수식은 꽃의 움직임과 주기를 2π로 동일하게 맞췄다. 
 
 > curvature = bcos(2πt)
 > b=-0.1, t=c(0.1,0.2,..,2.9,3)
 
 <img width="500" alt="curvature" src="https://user-images.githubusercontent.com/47768004/168473426-01b1d86b-ca82-4f8c-a2d6-38ade8ffdb67.png"> 
+
+
+## 3. 잎사귀
+
+점을 순서대로 연결하고, 닫힌 부분은 채워주는 `geom_polygon()`함수를 사용해서 
+
+``` R
+geom_leaf <- function(x=0, #잎과 잎사귀와의 간격 
+                      xend=2, #xend-x : 잎사귀 길이 
+                      xoffset = 0, #잎사귀 위치  
+                      yoffset = 0, 
+                      xflip = 1, # 잎사귀 방향 
+                      yflip = 1,      
+                      fill = "olivedrab3", 
+                      color = "palegreen4"
+                    ){
+  
+  #잎사귀의 곡선 함수
+  f <- function(x) x^2 / 2 
+  
+  .x <- seq(x, xend, length.out = 100)
+  .y <- f(.x)
+  
+  df <- tibble(x = c(.x, .y), y = c(.y, .x))
+  df$x <- xflip * df$x + xoffset
+  df$y <- yflip * df$y + yoffset
+  
+  geom_polygon(data = df, 
+               aes(x = x, y = y),
+               fill = fill, 
+               color = color)
+}
+```
