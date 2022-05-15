@@ -23,18 +23,33 @@ comments: true
 > "ggplot2으로 산점도, 선, 막대 그래프 말고 이런것도 할 수 있다고?"를 깨닫고, 이후에 ggplot2로 데이터를 표현하는데 적합한 새로운 그래프들을 그려나가는데도 도움이 됨.
 - 오랜만에 수학 공부하니 뇌가 활성화되는 느낌 
 
-그림은 크게 4가지 부분으로 구성되고, 하나씩 자세히 작성해보겠다. 
+그림은 크게 5가지 부분으로 구성되고, 하나씩 자세히 작성해보겠다. 
+0. 애니메이션 
 1. 꽃 
 2. 줄기 
 3. 잎사귀
 4. 기타 배경 
 
-아래 4개의 패키지를 사용한다. 
+우선, 아래 4개의 패키지를 사용한다. 
 ``` R
 library(animation)
 library(ggplot2)
 library(tidyverse)
 library(ggimage)
+```
+
+## 0. 애니메이션 
+
+animation 패키지에 있는 함수`saveGIF()`를 이용해서 애니메이션을 만들 수 있다. 여러개의 그림을 연결해서 애니메이션을 생성하고 gif파일 형식으로 저장된다. 아래 코드에서는 n개의 그림이 각각 dt초씩 재생되어 1개의 gif파일이 저장된다.
+
+```R
+saveGIF({
+  for (i in 1:n){
+    p1=ggplot()+
+        ...
+    print(p1)
+  }
+},interval = dt, ani.width = 400, ani.height = 400, movie.name = {파일저장경로/파일명.gif})
 ```
 
 ## 1. 꽃 
@@ -85,10 +100,13 @@ ggplot()+
 
 ![스크린샷 2022-05-15 오후 9 04 55](https://user-images.githubusercontent.com/47768004/168471848-39fa43dc-88b0-4749-aac0-e54fd463abca.png)
 
-따라서 아래와 같은 수식을 바탕으로 꽃이 움직이게 설정했다. > a=0.5, h=0.5, t=c(0.1,0.2,..,2.9,3))
+따라서 아래와 같은 수식을 바탕으로 꽃이 움직이게 설정했다. 
 
 > x = asin(wt)
-> y = hcos(πx/2a)
+
+> y = hcos(2πx/2a)
+
+> a=0.5, h=0.5, t=c(0.1,0.2,..,2.9,3)
 
 <img width="500" alt="flower_change" src="https://user-images.githubusercontent.com/47768004/168471444-a08c6549-9cf5-4772-b6fd-d58de0083d3b.png"> 
 
@@ -96,3 +114,31 @@ ggplot()+
 
 <img width="500" alt="flower_move" src="https://user-images.githubusercontent.com/47768004/168472158-03ef49c0-9177-433e-8d4f-b328da2660c2.gif"> 
 
+
+## 2. 줄기 
+
+곡선을 그리는 함수 `geom_curve()`를 이용해서 줄기를 그렸다. 
+
+```R
+geom_stem <- function(x=0, # 뿌리 위치 
+                      y=0, 
+                      xend, # 줄기 끝 위치  
+                      yend,
+                      curvature, # 곡률 
+                      color="olivedrab3"
+                    ){
+  list(
+    geom_curve(aes(x = x, y = y, xend = xend, yend = yend), 
+               ncp = 1000, curvature = curvature, size = 6, 
+               color = color)
+      )
+}
+```
+<img width="500" alt="stem_move" src="https://user-images.githubusercontent.com/47768004/168473242-de879fe0-a853-40bd-9081-dbbec2660491.gif"> 
+
+꽃이 움직이기 때문에 줄기도 자연스럽게 바람에 흔들리는 것처럼 휘어지는 것으로 연출하고 싶었다. 따라서 아래와 같은 수식을 바탕으로 곡률이 변하도록 설정했다.
+
+> curvature = bcos(2πt)
+> b=-0.1, t=c(0.1,0.2,..,2.9,3)
+
+<img width="500" alt="curvature" src="https://user-images.githubusercontent.com/47768004/168473426-01b1d86b-ca82-4f8c-a2d6-38ade8ffdb67.png"> 
