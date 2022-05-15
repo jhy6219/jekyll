@@ -178,7 +178,8 @@ geom_leaf <- function(x=0, # 잎과 잎사귀와의 간격
 
 ## 잎사귀 그리기 
 ggplot()+
-  geom_leaf(0, 2, 0, 0, -0.5, fill = "olivedrab3", color = "palegreen4")
+  geom_leaf(0, 2, 0, 0, -0.5, fill = "olivedrab3", color = "palegreen4")+
+  theme_minimal()
 ```
 
 <img width="350" alt="leaf" src="https://user-images.githubusercontent.com/47768004/168474650-6b2c8fcb-5723-406b-aeea-80e2df9968ab.png"> 
