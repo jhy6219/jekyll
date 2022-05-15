@@ -293,8 +293,10 @@ saveGIF({
 ```R
 ggplot()+
       geom_rect(mapping=aes(xmin=-5, xmax=30, ymin=0, ymax=22), fill="lightskyblue2",alpha=0.2)+#하늘
-      geom_rect(mapping=aes(xmin=-5, xmax=30, ymin=-5, ymax=0), fill="sienna4") # 땅 
+      geom_rect(mapping=aes(xmin=-5, xmax=30, ymin=-5, ymax=0), fill="sienna4")+ # 땅 
+      theme_minimal()
 ```
+![bg](https://user-images.githubusercontent.com/47768004/168480396-8a3c654b-4127-498d-8529-27d23fdd6ab8.png)
 
 ### 태양 
 
@@ -311,13 +313,14 @@ saveGIF({
       geom_image(mapping=aes(-0.1,0.1),image=paste0(path,'/image/sun2.png'),size=0.5)+ # 해
       geom_image(mapping=aes(0,0),image=paste0(path,'/image/sun1.png'),size=my_sunshine_size[i]) + # 빛 
       geom_image(mapping=aes(0,0),image=paste0(path,'/image/prof.png'),size=0.4)+
-      coord_cartesian(xlim=c(-3,3),ylim=c(-3,3))
+      coord_cartesian(xlim=c(-3,3),ylim=c(-3,3))+
+      theme_mininal()
     print(p1)
   }
 },interval = dt, ani.width = 200, ani.height = 200,movie.name = paste0(path,"/plot/sun.gif"))
 ```
 
-![sun](https://user-images.githubusercontent.com/47768004/168478212-5b6aaac7-60f0-475b-865f-0dee23a38949.gif)
+![sun](https://user-images.githubusercontent.com/47768004/168480341-4320a74a-a7eb-49e8-b21d-10b98dcaca30.gif)
 
 ### 글씨 
 
@@ -330,14 +333,14 @@ saveGIF({
   for (i in 1:length(x)){
     p1=ggplot()+
       geom_image(mapping=aes(0+rnorm$text_x[i]/50,0+rnorm$text_y[i]/50),image=paste0(path,'/image/text.png'),size=1)+
-      coord_cartesian(xlim=c(-2,2),ylim=c(-2,2))
+      coord_cartesian(xlim=c(-2,2),ylim=c(-2,2))+
+      theme_minimal()
     print(p1)
   }
 },interval = dt, ani.width = 200, ani.height = 200,movie.name = paste0(path,"/plot/text.gif"))
 
 ```
-![text](https://user-images.githubusercontent.com/47768004/168478456-648cc5bd-b305-4101-b1aa-3f323c719321.gif)
-
+![text](https://user-images.githubusercontent.com/47768004/168480344-b9535116-9380-42c3-8be0-5f08a73a4533.gif)
 
 ## 전체 코드 
 [github](https://github.com/jhy6219/teacher-s-day-present)
