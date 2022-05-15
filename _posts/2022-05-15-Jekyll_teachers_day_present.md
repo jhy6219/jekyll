@@ -342,5 +342,12 @@ saveGIF({
 ```
 ![text](https://user-images.githubusercontent.com/47768004/168480344-b9535116-9380-42c3-8be0-5f08a73a4533.gif)
 
-## 전체 코드 
-[github](https://github.com/jhy6219/teacher-s-day-present)
+## 결론 
+
+해당 내용이 데이터 시각화와 직접적인 관련은 없지만, 재밌는 방법으로 ggplot2와 친해질 수 있는 방법이라 생각된다. 
+EDA시 막대, 선 그래프로 대부분 해결이 되지만, 어떤 데이터에 대해서는 기존의 없었던 시각화가 필요한 경우가 있다. 그럴 때는 직접 그래프를 구성해내야하는데, ggplot2는 이를 위한 최고의 도구로 생각된다. (그림도 그리는데 뭔들 못해..)
+
+
+## 참고 
+
+Rcode : [github](https://github.com/jhy6219/teacher-s-day-present)
