@@ -339,4 +339,5 @@ saveGIF({
 ![text](https://user-images.githubusercontent.com/47768004/168478456-648cc5bd-b305-4101-b1aa-3f323c719321.gif)
 
 
-> 전체 애니메이션 코드는 추후에 덧붙이겠습니다! 
+## 전체 코드 
+[github](https://github.com/jhy6219/teacher-s-day-present)
