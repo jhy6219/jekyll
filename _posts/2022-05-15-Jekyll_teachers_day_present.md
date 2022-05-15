@@ -5,7 +5,6 @@ excerpt: 스승의 날을 맞아 교수님께 꽃을 선물드려보아요! 🌺
 categories: [jekyll]
 tags: #[jekyll, blog, 꿀팁]
 last_modified_at: 2022-05-15
-use_math: true
 comments: true
 ---
 아래는 내가 석사시절 스승의 날에 지도 교수님께 선물로 드린 그림(!?)이다.
@@ -85,11 +84,12 @@ ggplot()+
 
 ![스크린샷 2022-05-15 오후 9 04 55](https://user-images.githubusercontent.com/47768004/168471848-39fa43dc-88b0-4749-aac0-e54fd463abca.png)
 
-x=a*sin(w*t)
-y=h*cos(pi*x/(2*a))
-
+따라서 아래와 같은 수식을 바탕으로 꽃이 움직이게 설정했다. (a=0.5, h=0.5, t=c(0.1,0.2,..,2.9,3))
+> x = asin(wt)
+> y = hcos(πx/2a)
 
 ![flower_change](https://user-images.githubusercontent.com/47768004/168471444-a08c6549-9cf5-4772-b6fd-d58de0083d3b.png)
 
+![flower_move](https://user-images.githubusercontent.com/47768004/168472158-03ef49c0-9177-433e-8d4f-b328da2660c2.gif)
 
 
