@@ -18,10 +18,54 @@ TMI : 지도 교수님께서는 학생으로부터 물건 선물을 받지 않�
 - 시각화의 생각 확장 // ggplot2으로 산점도, 선, 막대 그래프 말고 이런것도 할 수 있다고?를 깨닫고, 이후에 ggplot2로 데이터를 표현하는데 적합한 새로운 그래프들을 그려나가는데도 도움이 됨.
 - 오랜만에 수학 공부하니 뇌가 활성화되는 느낌 
 
-그림은 크게 4가지 부분으로 구성되고, 하나씩 구체
+그림은 크게 4가지 부분으로 구성되고, 하나씩 자세히 작성해보겠다. 
 1. 꽃 
 2. 줄기 
 3. 잎사귀
 4. 기타 배경 
+
+## 1. 꽃 
+
+아래 함수를 바탕으로 아래와 같은 꽃을 그릴 수 있다! 
+```R
+geom_flower <- function(xcore, #꽃의 중심 위치 
+                        ycore,
+                        n=1000, #꽃 만들때 난수 생성 수  
+                        image_path,#이미지 경로 
+                        image_size,
+                        ...){
+  #등고선으로 꽃 만들고, 꽃 모양이 변하면 안되니까 시드 고정 
+  set.seed(1234) 
+  mean=c(0,0)
+  #난수 2쌍 생성
+  .x <- mvtnorm::rmvnorm(n, mean) 
+  df1 <- tibble(x = .x[, 1], y = .x[, 2])
+  
+  df=tibble(x = .x[, 1]+xcore, y = .x[, 2]+ycore)
+  list(
+    stat_density_2d(
+      aes(x = x, y = y, fill = stat(level)), data = df, 
+      geom = "polygon", show.legend = FALSE, color = "grey80"),
+    geom_image(mapping=aes(xcore,ycore),image=image_path, size=image_size),
+    scale_fill_gradient2(...)
+  )
+}
+## 꽃 그리기 
+ggplot()+
+  geom_flower(xcore=0,
+              ycore=0,
+              image_path=paste0(path,"/image/student5.png"),
+              image_size=0.5,
+              low = "palevioletred1", 
+              mid = "firebrick2", 
+              high = "lightpink1",
+              midpoint = 0.075
+              )+
+  theme_minimal()
+```
+![only_flower](https://user-images.githubusercontent.com/47768004/168469859-fd3e0217-6e74-4493-803d-7c684fa757f5.png)
+
+![flower_plot](https://user-images.githubusercontent.com/47768004/168469861-a1311ff9-f6f3-40eb-af13-d5833e02dee0.png)
+
 
 
