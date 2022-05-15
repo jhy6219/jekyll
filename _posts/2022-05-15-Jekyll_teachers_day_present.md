@@ -292,11 +292,11 @@ saveGIF({
 
 ```R
 ggplot()+
-      geom_rect(mapping=aes(xmin=-5, xmax=30, ymin=0, ymax=22), fill="lightskyblue2",alpha=0.2)+#하늘
+      geom_rect(mapping=aes(xmin=-5, xmax=30, ymin=0, ymax=22), fill="lightskyblue2",alpha=0.2)+ # 하늘
       geom_rect(mapping=aes(xmin=-5, xmax=30, ymin=-5, ymax=0), fill="sienna4")+ # 땅 
       theme_minimal()
 ```
-![bg](https://user-images.githubusercontent.com/47768004/168480396-8a3c654b-4127-498d-8529-27d23fdd6ab8.png)
+<img width="400" alt="bg" src="https://user-images.githubusercontent.com/47768004/168480396-8a3c654b-4127-498d-8529-27d23fdd6ab8.png"> 
 
 ### 태양 
 
