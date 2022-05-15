@@ -19,12 +19,12 @@ comments: true
 
 - ggplot2에 대한 이해도 증가 
 > 진짜 별게 다 되네.. 헤들리 위컴(ggplot2 개발자) 당신은 도덕책.. 
-- 시각화의 생각 확장 
+- 시각화에 대한 생각 확장 
 > "ggplot2으로 산점도, 선, 막대 그래프 말고 이런것도 할 수 있다고?"를 깨닫고, 이후에 ggplot2로 데이터를 표현하는데 적합한 새로운 그래프들을 그려나가는데도 도움이 되었다. 
 - 오랜만에 수학 공부하니 뇌가 활성화되는 느낌 
 > 원의 방정식이 얼마만이야..
 
-그림은 크게 5가지 부분으로 구성되고, 하나씩 자세히 작성해보겠다. 
+그림은 크게 4가지 부분으로 구성되고, 하나씩 자세히 작성해보겠다. 
 1. 꽃 
 2. 줄기 
 3. 잎사귀
@@ -216,12 +216,11 @@ leaf_loc <- function(xend, # 꽃 위치
 }
 ```
 
-예를 들어 잎사귀를 줄기의 2/3지점에 위치 시킨다고 하자. (곡률에 따라 줄기의 길이가 달라지기 때문에 x, y 값이 계속 변한다.)
-줄기의 좌표와 줄기의 곡률을 알고 있기 때문에, 이를 바탕으로 잎사귀의 위치를 알 수 있다. 아래의 이미지에서 빨간 점의 위치를 알고 싶다면, Or 좌표계에서 Ov 좌표계로 넘어가서, 원의 방정식을 기반으로 vir.x, vir.y를 구할 수 있다. (그림2 참고)
-여기서 구한 vir.x, vir.y를 Ov -> Or 좌표계로 변경시키려면 회전 행렬을 이용하면 된다. 
+예를 들어 잎사귀를 줄기의 2/3지점에 위치 시킨다고 하자. 줄기의 좌표와 줄기의 곡률을 알고 있기 때문에, 이를 바탕으로 잎사귀의 위치를 알 수 있다. 
+아래의 이미지에서 빨간 점의 위치를 알고 싶다고 하자. 우선 Or 좌표계에서 Ov 좌표계로 넘어가서 원의 방정식을 기반으로 vir.x, vir.y를 구할 수 있다. (그림2 참고)
+그리고 여기서 구한 vir.x, vir.y를 Ov -> Or 좌표계로 변경시켜야한다. 이때는 회전 행렬을 이용하면 된다. (그림1 수식 참고)
 
 ![스크린샷 2022-05-15 오후 11 13 38](https://user-images.githubusercontent.com/47768004/168477229-2c10d523-141f-4042-abd3-a67c1c3d2219.png)
-
 
 
 꽃, 줄기, 잎사귀, 잎사귀 위치 함수를 종합해서 다음과 같이 함수를 생성했고, 움직이는 꽃 한송이를 그려보았다. 잎사귀가 잘 붙어있는 것을 볼 수 있다. 
@@ -274,21 +273,23 @@ saveGIF({
                      flower_mid='firebrick2',
                      flower_high='lightpink1',
                      stem_curvature=mycurve[i])+
-      coord_cartesian(xlim=c(-6,6),ylim=c(0,12))
+      coord_cartesian(xlim=c(-6,6),ylim=c(0,12))+
+      theme_minimal()
     print(p1)
   }
 },interval = dt, ani.width = 400, ani.height = 400,movie.name = paste0(path,"/plot/dancing_flower.gif"))
 ```
-![dancing_flower](https://user-images.githubusercontent.com/47768004/168477357-0aa6a918-7591-4dd2-a0cb-cf6d10920745.gif)
+![dancing_flower](https://user-images.githubusercontent.com/47768004/168479506-a589ec1a-045c-471c-9a63-416ed2fa27f4.gif)
 
 
 ## 4. 기타 배경 
 
-기타 배경은 상대적으로 간단하다. 
+꽃 이외의 구성은 굉장히 간단하다.
 
 ### 하늘과 땅 
 
 직사각형을 생성하는 `geom_rect()`함수로 간단히 하늘과 땅을 구분했다. 
+
 ```R
 ggplot()+
       geom_rect(mapping=aes(xmin=-5, xmax=30, ymin=0, ymax=22), fill="lightskyblue2",alpha=0.2)+#하늘
@@ -297,7 +298,7 @@ ggplot()+
 
 ### 태양 
 
-태양은 ppt로 이미지를 그려서 붙여왔고, 시간에 따라 햇빛의 size를 달리하여 반짝반짝한 느낌을 주었다. 그리고 태양의 중심에는 교수님 이미지를 넣었다. 
+태양은 ppt로 이미지를 그려서 `geom_image()`로 가져왔고, 시간에 따라 햇빛의 size를 달리하여 반짝반짝한 느낌을 주었다. 그리고 태양의 중심에는 교수님 이미지를 넣었다. 
 
 ```R
 sunshine_size=seq(0.27,0.31,length=5)
@@ -320,7 +321,7 @@ saveGIF({
 
 ### 글씨 
 
-글씨도 이미지로 가져왔고, x,y축 값에 대해 난수생성을 하여 약간의 움직임을 주어 인터랙티브한 느낌을 주었다. 
+글씨도 마찬가지로 이미지로 가져왔고(`geom_image()`), x, y축 값에 대해 난수생성을 하여 약간의 움직임을 주어 인터랙티브한 느낌을 추가했다.
 
 ```R
 .x <- mvtnorm::rmvnorm(length(x), mean=c(0,0)) 
