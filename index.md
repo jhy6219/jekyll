@@ -1,7 +1,7 @@
 ---
 layout: page
-title: 한갖한해
-description: 한번도 갖지 못한 것을 갖기 위해서는 한번도 해보지 않은 것을 해야한다.
+title: 재밌는게 최고야
+description: 
 background: '/img/bg-index.jpg'
 ---
 안녕하세요! 데이터분석가 hy입니다. 
