@@ -18,12 +18,13 @@ comments: true
 선물을 준비하면서 아래 3가지 지점을 얻을 수 있었다. 그리고 이 작업이 나에겐 충분히 의미가 있다고 생각되어서 블로그에 남기려고 한다. 
 
 - ggplot2에 대한 이해도 증가 
+> 진짜 별게 다 되네.. 헤들리 위컴(ggplot2 개발자) 당신은 도덕책.. 
 - 시각화의 생각 확장 
-> "ggplot2으로 산점도, 선, 막대 그래프 말고 이런것도 할 수 있다고?"를 깨닫고, 이후에 ggplot2로 데이터를 표현하는데 적합한 새로운 그래프들을 그려나가는데도 도움이 됨.
+> "ggplot2으로 산점도, 선, 막대 그래프 말고 이런것도 할 수 있다고?"를 깨닫고, 이후에 ggplot2로 데이터를 표현하는데 적합한 새로운 그래프들을 그려나가는데도 도움이 되었다. 
 - 오랜만에 수학 공부하니 뇌가 활성화되는 느낌 
 > 원의 방정식이 얼마만이야..
 
-그림은 크게 5가지 부분으로 구성되고, 하나씩 자세히 작성해보았다. 
+그림은 크게 5가지 부분으로 구성되고, 하나씩 자세히 작성해보겠다. 
 0. 애니메이션 
 1. 꽃 
 2. 줄기 
@@ -57,16 +58,16 @@ saveGIF({
 아래 코드를 바탕으로 아래와 같은 학생 꽃을 그릴 수 있다! 
 2차원 등고선을 그리는 함수 `stat_density_2d()`를 이용해서 꽃을 그렸다. (꽃이라고 우겨본다.) 거기에 이미지를 추가하는 함수 `geom_image()`를 이용해서 꽃의 중심에 학생 사진을 추가했다. 
 ```R
-geom_flower <- function(xcore, #꽃의 중심 위치 
+geom_flower <- function(xcore, # 꽃의 중심 위치 
                         ycore,
-                        n=1000, #꽃 만들때 난수 생성 수  
-                        image_path,#이미지 경로 
+                        n=1000, # 꽃 만들때 난수 생성 수  
+                        image_path,# 이미지 경로 
                         image_size,
                         ...){
-  #등고선으로 꽃 만들고, 꽃 모양이 변하면 안되니까 시드 고정 
+  # 등고선으로 꽃 만들고, 꽃 모양이 변하면 안되니까 시드 고정 
   set.seed(1234) 
   mean=c(0,0)
-  #난수 2쌍 생성
+  # 난수 2쌍 생성
   .x <- mvtnorm::rmvnorm(n, mean) 
   df1 <- tibble(x = .x[, 1], y = .x[, 2])
   
@@ -80,7 +81,7 @@ geom_flower <- function(xcore, #꽃의 중심 위치
   )
 }
 
-# 꽃 그리기 
+## 꽃 그리기 
 ggplot()+
   geom_flower(xcore=0,
               ycore=0,
@@ -139,6 +140,7 @@ geom_stem <- function(x=0, # 뿌리 위치
 꽃이 움직이기 때문에 줄기도 자연스럽게 바람에 흔들리는 것처럼 휘어지는 것으로 연출하고 싶었다. 따라서 아래와 같은 수식을 바탕으로 곡률이 변하도록 설정했다. 해당 수식은 꽃의 움직임과 주기를 2π로 동일하게 맞췄다. 
 
 > curvature = bcos(2πt)
+
 > b=-0.1, t=c(0.1,0.2,..,2.9,3)
 
 <img width="500" alt="curvature" src="https://user-images.githubusercontent.com/47768004/168473426-01b1d86b-ca82-4f8c-a2d6-38ade8ffdb67.png"> 
@@ -146,12 +148,12 @@ geom_stem <- function(x=0, # 뿌리 위치
 
 ## 3. 잎사귀
 
-점을 순서대로 연결하고, 닫힌 부분은 채워주는 `geom_polygon()`함수를 사용해서 
+점을 순서대로 연결하고, 닫힌 부분은 채워주는 `geom_polygon()`함수를 사용해서 잎사귀를 그릴 수 있다. 
 
 ``` R
-geom_leaf <- function(x=0, #잎과 잎사귀와의 간격 
-                      xend=2, #xend-x : 잎사귀 길이 
-                      xoffset = 0, #잎사귀 위치  
+geom_leaf <- function(x=0, # 잎과 잎사귀와의 간격 
+                      xend=2, # xend-x : 잎사귀 길이 
+                      xoffset = 0, # 잎사귀 위치  
                       yoffset = 0, 
                       xflip = 1, # 잎사귀 방향 
                       yflip = 1,      
@@ -159,7 +161,7 @@ geom_leaf <- function(x=0, #잎과 잎사귀와의 간격
                       color = "palegreen4"
                     ){
   
-  #잎사귀의 곡선 함수
+  # 잎사귀의 곡선 함수
   f <- function(x) x^2 / 2 
   
   .x <- seq(x, xend, length.out = 100)
@@ -174,4 +176,111 @@ geom_leaf <- function(x=0, #잎과 잎사귀와의 간격
                fill = fill, 
                color = color)
 }
+
+## 잎사귀 그리기 
+ggplot()+
+  geom_leaf(0, 2, 0, 0, -0.5, fill = "olivedrab3", color = "palegreen4")
 ```
+
+<img width="350" alt="leaf" src="https://user-images.githubusercontent.com/47768004/168474650-6b2c8fcb-5723-406b-aeea-80e2df9968ab.png"> 
+
+잎사귀의 밑 부분은 f(x)로, 윗 부분은 f(x)의 역함수로 구성했다. 좁은 간격으로 점을 여러개를 찍고, 그 점을 순서대로 연결하는 형태이다. (아래 그래프에서 색상에 해당하는 z가 점의 순서이다. 점이 진할수록 앞 순서이다.) 잎사귀 밑부분 (0,0)->...->(2,0) 그리고 잎사귀 윗 부분 (0,0)->...->(2,0)에 대해 촘촘하게 순서대로 점을 생성하고 이를 연결해서 자연스러운 곡선으로 보이게 했다. 
+
+> f(x) = x²/2 
+
+<img width="450" alt="leaf_frame" src="https://user-images.githubusercontent.com/47768004/168474648-6e4778f8-e1b5-47fd-b678-bb289ee22da5.png"> 
+
+
+그리고 이제 이 잎사귀를 줄기에 붙여야한다. 줄기가 움직이기 때문에, 잎사귀의 위치도 시간에 따라 변한다. 아래 함수를 바탕으로 잎사귀의 위치를 구할 수 있다. 
+
+```R
+leaf_loc <- function(xend, # 꽃 위치 
+                     yend,
+                     p, # 위치(0~1 ->줄기 중심 기준 -100%~100%)
+                     curvature # 줄기 곡률 
+                     ){
+  d <- sqrt(xend^2+yend^2)
+  beta <- atan2(yend,xend)
+  k = abs(curvature)
+  
+  sx = (2*p-1)
+  virtual.x = d/2*sx
+  virtual.y = -sign(curvature)*d/2*(sqrt(1/k^2-(sx)^2)-sqrt(1/k^2-1))
+
+  cb = cos(beta)
+  sb = sin(beta)
+  
+  leaf.x = cb*virtual.x -sb*virtual.y + d/2*cb
+  leaf.y = sb*virtual.x +cb*virtual.y + d/2*sb
+  
+  return(c(leaf.x, leaf.y))
+}
+```
+
+예를 들어 잎사귀를 줄기의 2/3지점에 위치 시킨다고 하자. (곡률에 따라 줄기의 길이가 달라지기 때문에 x, y 값이 계속 변한다.)
+줄기의 좌표와 줄기의 곡률을 알고 있기 때문에, 이를 바탕으로 잎사귀의 위치를 알 수 있다. 아래의 이미지에서 빨간 점의 위치를 알고 싶다면, Or 좌표계에서 Ov 좌표계로 넘어가서, 원의 방정식을 기반으로 vir.x, vir.y를 구할 수 있다. (그림2 참고)
+여기서 구한 vir.x, vir.y를 Ov -> Or 좌표계로 변경시키려면 회전 행렬을 이용하면 된다. 
+
+![스크린샷 2022-05-15 오후 11 13 38](https://user-images.githubusercontent.com/47768004/168477229-2c10d523-141f-4042-abd3-a67c1c3d2219.png)
+
+
+
+꽃, 줄기, 잎사귀, 잎사귀 위치 함수를 종합해서 다음과 같이 함수를 생성했고, 움직이는 꽃 한송이를 그려보았다. 잎사귀가 잘 붙어있는 것을 볼 수 있다. 
+
+```R
+dancing_flower<-function(flower_xcore, # flower 만의 좌표 
+                         flower_ycode,
+                         flower_ox, # 전체 이미지 좌표로 볼때
+                         flower_oy=9,
+                         flower_image_path,
+                         flower_image_size,
+                         flower_low='red',
+                         flower_mid='purple',
+                         flower_high='pink',
+                         stem_curvature
+                         ){
+  list(
+    geom_stem(x=flower_ox,
+              xend=flower_xcore+flower_ox,
+              yend=flower_ycode+flower_oy,
+              curvature=stem_curvature,
+              ),
+    geom_flower(xcore=flower_xcore+flower_ox, 
+                ycore=flower_ycode+flower_oy,
+                image_path=flower_image_path,
+                image_size=flower_image_size,
+                low = flower_low, 
+                mid = flower_mid, 
+                high = flower_high,
+                midpoint = 0.075),
+    geom_leaf(xoffset = leaf_loc(flower_xcore, flower_ycode+flower_oy,0.3,stem_curvature)[1]+flower_ox,  
+              yoffset = leaf_loc(flower_xcore, flower_ycode++flower_oy-1,0.3,stem_curvature)[2], 
+              xflip = 0.5),  
+    geom_leaf(xoffset = leaf_loc(flower_xcore, flower_ycode+flower_oy,0.3,stem_curvature)[1]+flower_ox,  
+              yoffset = leaf_loc(flower_xcore, flower_ycode+flower_oy-1,0.3,stem_curvature)[2], 
+              xflip = -0.5) 
+  )
+}
+
+## 움직이는 꽃 한송이 
+saveGIF({
+  for (i in 1:length(x)){
+    p1=ggplot()+
+      dancing_flower(flower_xcore=x[i],
+                     flower_ycode=y[i],
+                     flower_ox=0,
+                     flower_image_path=paste0(path,"/image/student5.png"),
+                     flower_image_size=0.2,
+                     flower_low='palevioletred1',
+                     flower_mid='firebrick2',
+                     flower_high='lightpink1',
+                     stem_curvature=mycurve[i])+
+      coord_cartesian(xlim=c(-6,6),ylim=c(0,12))
+    print(p1)
+  }
+},interval = dt, ani.width = 400, ani.height = 400,movie.name = paste0(path,"/plot/dancing_flower.gif"))
+```
+![dancing_flower](https://user-images.githubusercontent.com/47768004/168477357-0aa6a918-7591-4dd2-a0cb-cf6d10920745.gif)
+
+
+
