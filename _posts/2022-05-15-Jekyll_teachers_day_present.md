@@ -283,4 +283,60 @@ saveGIF({
 ![dancing_flower](https://user-images.githubusercontent.com/47768004/168477357-0aa6a918-7591-4dd2-a0cb-cf6d10920745.gif)
 
 
+## 4. 기타 배경 
 
+기타 배경은 상대적으로 간단하다. 
+
+### 하늘과 땅 
+
+직사각형을 생성하는 `geom_rect()`함수로 간단히 하늘과 땅을 구분했다. 
+```R
+ggplot()+
+      geom_rect(mapping=aes(xmin=-5, xmax=30, ymin=0, ymax=22), fill="lightskyblue2",alpha=0.2)+#하늘
+      geom_rect(mapping=aes(xmin=-5, xmax=30, ymin=-5, ymax=0), fill="sienna4") # 땅 
+```
+
+### 태양 
+
+태양은 ppt로 이미지를 그려서 붙여왔고, 시간에 따라 햇빛의 size를 달리하여 반짝반짝한 느낌을 주었다. 그리고 태양의 중심에는 교수님 이미지를 넣었다. 
+
+```R
+sunshine_size=seq(0.27,0.31,length=5)
+# t의 length가 31개라서 길이 31로 맞춰줌
+my_sunshine_size=c(rep(c(sunshine_size,rev(sunshine_size)),3),sunshine_size[1]) 
+
+saveGIF({
+  for (i in 1:length(x)){
+    p1=ggplot()+
+      geom_image(mapping=aes(-0.1,0.1),image=paste0(path,'/image/sun2.png'),size=0.5)+ # 해
+      geom_image(mapping=aes(0,0),image=paste0(path,'/image/sun1.png'),size=my_sunshine_size[i]) + # 빛 
+      geom_image(mapping=aes(0,0),image=paste0(path,'/image/prof.png'),size=0.4)+
+      coord_cartesian(xlim=c(-3,3),ylim=c(-3,3))
+    print(p1)
+  }
+},interval = dt, ani.width = 200, ani.height = 200,movie.name = paste0(path,"/plot/sun.gif"))
+```
+
+![sun](https://user-images.githubusercontent.com/47768004/168478212-5b6aaac7-60f0-475b-865f-0dee23a38949.gif)
+
+### 글씨 
+
+글씨도 이미지로 가져왔고, x,y축 값에 대해 난수생성을 하여 약간의 움직임을 주어 인터랙티브한 느낌을 주었다. 
+
+```R
+.x <- mvtnorm::rmvnorm(length(x), mean=c(0,0)) 
+rnorm<- tibble(text_x = .x[, 1], text_y = .x[, 2])
+saveGIF({
+  for (i in 1:length(x)){
+    p1=ggplot()+
+      geom_image(mapping=aes(0+rnorm$text_x[i]/50,0+rnorm$text_y[i]/50),image=paste0(path,'/image/text.png'),size=1)+
+      coord_cartesian(xlim=c(-2,2),ylim=c(-2,2))
+    print(p1)
+  }
+},interval = dt, ani.width = 200, ani.height = 200,movie.name = paste0(path,"/plot/text.gif"))
+
+```
+![text](https://user-images.githubusercontent.com/47768004/168478456-648cc5bd-b305-4101-b1aa-3f323c719321.gif)
+
+
+> 전체 애니메이션 코드는 추후에 덧붙이겠습니다! 
