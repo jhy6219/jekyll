@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 시계열 데이터 다루기 - 날짜/시각 처리
+title: 시계열 - 날짜/시각 처리
 excerpt: R에서 날짜와 시각을 처리하는 방법에 대해
 categories: [시계열]
 tags: #[jekyll, blog, 꿀팁]
