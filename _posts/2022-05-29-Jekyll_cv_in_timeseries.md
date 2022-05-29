@@ -17,9 +17,13 @@ use_math: true
 <img width="527" alt="스크린샷 2022-05-29 오후 10 57 41" src="https://user-images.githubusercontent.com/47768004/170872788-fc1f5412-50b3-4245-a39f-1e12f9f5fb6c.png">
 
 하지만, 비시계열과 달리 시계열 데이터는 자기상관관계가 있다.
+
 > 자기상관관계 : 현재의 상태와 과거 & 미래와 밀접한 관련 있음 = 시간의 흐름에 따라 독립적이지 않음
+
 따라서, 자기 회귀 오차 모형과 같은 형태인 경우가 많다. (과거의 연속된 데이터를 통해, 미래 데이터 예측)
+
 > 자기 회귀 오차 모형 예시: y(t+1)=a + b * y(t) + c * y(t-1) + d * y(t-2) + ... 
+
 아래는 위와 같은 형태에 적용할 수 있는 Cross-Validation이다. 
 아래에서 1, 2방법에서는 학습 데이터와 테스트 데이터 사이의 독립성을 유지하지 않는다는 단점이 있는데, 3은 이를 보완한 것이다. 
 
@@ -35,7 +39,7 @@ Hold-out Cross-Validation은 아래와 이미지와 같이 특정 비율로 학�
 
 > t=1~15인 데이터가 있고, 모델의 input 기간(노랑색)이 2, output 기간(갈색)이 1일 때 train 데이터를 기반으로 a ~ k 데이터셋을 바탕으로 모델을 학습한다. 그리고 ㅣ ~ m 데이터셋을 바탕으로 모델을 평가한다. 
 
-<img width="450" alt="스크린샷 2022-05-29 오후 10 24 40" src="https://user-images.githubusercontent.com/47768004/170871123-058507d8-5203-4924-b6a0-77e2782a10bf.png">
+<img width="500" alt="스크린샷 2022-05-29 오후 10 24 40" src="https://user-images.githubusercontent.com/47768004/170871123-058507d8-5203-4924-b6a0-77e2782a10bf.png">
 
 하지만! 아래 경우에는 교차 검증을 실시한다. 하지만 모든 것에는 trade off가 있는 법.. 그만큼 모델 학습/평가 소요 시간이 증가한다. 
 - 8:2로 나눠도 학습 데이터가 부족한 것 같을 때 (전반적으로 데이터가 많이 부족할 때 )
@@ -45,9 +49,9 @@ Hold-out Cross-Validation은 아래와 이미지와 같이 특정 비율로 학�
 
 K-Fold Cross-Validation은 아래와 같이 데이터를 K등분해서, 1개의 fold를 테스트 데이터로, K-1개의 fold를 학습 데이터로 돌아가면서 K번 반복하는 방법론이다. 학습 데이터와 테스트 데이터가 계속 교차하면서, 모든 데이터가 한번씩은 테스트 데이터가 되어보기 때문에, 과적합이 될 우려가 적다. 또한 전체 데이터를 학습 데이터로 사용할 수 있다는 점도 장점이다. K개의 모델을 앙상블해서 예측 결과를 낼 수 있다. (연속해서 학습을 할 수 있는 뉴럴 네트워크 모델에서는 순차적으로 K번에 걸쳐 학습하는 방법도 있는 것으로 보인다.)
 
-<img width="350" alt="스크린샷 2022-05-29 오후 11 17 26" src="https://user-images.githubusercontent.com/47768004/170873782-33e09f41-6e06-4f99-a270-538cbc7cf6b5.png">
+<img width="500" alt="스크린샷 2022-05-29 오후 11 17 26" src="https://user-images.githubusercontent.com/47768004/170873782-33e09f41-6e06-4f99-a270-538cbc7cf6b5.png">
 
-<img width="600" alt="스크린샷 2022-05-29 오후 11 18 07" src="https://user-images.githubusercontent.com/47768004/170873830-c8a58ec2-ee96-4990-bfb7-c179e0fe3ebb.png">
+<img width="750" alt="스크린샷 2022-05-29 오후 11 18 07" src="https://user-images.githubusercontent.com/47768004/170873830-c8a58ec2-ee96-4990-bfb7-c179e0fe3ebb.png">
 
 ## #3. Non-Dependent Cross-Validation
 
@@ -56,9 +60,9 @@ Non-Dependent Cross-Validation은 #2. K-Fold Cross-Validation와 유사하나, �
 
 split 1을 예시로 들자면, #2. K-Fold Cross-Validation에서는 데이터셋 b ~m을 바탕으로 모델을 학습하고, 데이터셋 a로 테스트를 한다. 이때 데이터셋 b,c에는 이미 테스트 데이터의 정답지 t=3 부분을 함유하고 있다. 학습 할 때 이미 정답을 본적이 있다는 것이다. 따라서 b, c데이터셋을 제외하고 학습/ 테스트를 진행한다. 즉, 학습/ 테스트 데이터와 기간이 겹치는 데이터셋은 아예 제외하여 학습/ 테스트의 독립성을 유지한다. 
 
-<img width="350" alt="스크린샷 2022-05-29 오후 11 32 36" src="https://user-images.githubusercontent.com/47768004/170874659-9e699cd1-5a54-4755-b5c0-935f652cf331.png">
+<img width="500" alt="스크린샷 2022-05-29 오후 11 32 36" src="https://user-images.githubusercontent.com/47768004/170874659-9e699cd1-5a54-4755-b5c0-935f652cf331.png">
 
-<img width="600" alt="스크린샷 2022-05-29 오후 11 33 33" src="https://user-images.githubusercontent.com/47768004/170874726-9f37e74f-1347-4389-bb37-16cd18c12ee9.png">
+<img width="700" alt="스크린샷 2022-05-29 오후 11 33 33" src="https://user-images.githubusercontent.com/47768004/170874726-9f37e74f-1347-4389-bb37-16cd18c12ee9.png">
 
 그렇다고 #1,#2가 별로고 #3이 꼭 좋다는 것은 아니다. #3의 split 1에 대해서 계속 이야기를 이어나가자면, 데이터 세트 b의 경우에는 t=2 -> t=3 다음 t=4에 대해 학습을 한 것이고, 테스트 데이터인 a의 경우에는 t=1 -> t=2 다음 t=3가 뭐가  나올지에 대한 이야기로 엄밀히 정답을 알려줬다고 보기엔 어렵다. 순서가 다르기 때문에..  
 
